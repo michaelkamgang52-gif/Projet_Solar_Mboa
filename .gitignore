@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+env/
+
+# IDE
+.vscode/
+
+# Données volumineuses
+*.csv
+*.json
+
+# Variables d'environnement / Mots de passe
+.env

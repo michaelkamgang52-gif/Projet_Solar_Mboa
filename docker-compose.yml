@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # 1. Cache des sessions IoT et commandes à distance
+  redis:
+    image: redis:7.2-alpine
+    container_name: solarmboa-redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+  # 2. Profils d'installation enrichis (Schéma variable)
+  mongodb:
+    image: mongo:7.0
+    container_name: solarmboa-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: SolarMboaPassword2026
+    restart: always
+
+  # 3. Ingestion haute fréquence de la télémétrie (12M évènements/jour)
+  cassandra:
+    image: cassandra:4.1
+    container_name: solarmboa-cassandra
+    ports:
+      - "9042:9042"
+    restart: always
+
+  # 4. Cartographie du réseau de distribution et détection de fraude
+  neo4j:
+    image: neo4j:5.15-community
+    container_name: solarmboa-neo4j
+    ports:
+      - "7474:7474" # Interface Web HTTP
+      - "7687:7687" # Protocole Bolt
+    environment:
+      NEO4J_AUTH: neo4j/SolarMboaPassword2026
+    restart: always
+
+  # 5. Métriques de production solaire en temps réel (Séries temporelles)
+  influxdb:
+    image: influxdb:2.7-alpine
+    container_name: solarmboa-influxdb
+    ports:
+      - "8086:8086"
+    restart: always
