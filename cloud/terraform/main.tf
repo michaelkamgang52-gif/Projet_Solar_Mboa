@@ -71,3 +71,37 @@ resource "google_compute_firewall" "allow_iot_traffic" {
 }
 
 # Règle par défaut : Bloquer tout le reste (Deny All implicite de GCP)
+
+
+# ======================================================
+# 4. STOCKAGE OBJET (GCS BUCKETS BRONZE & GOLD)
+# ======================================================
+
+# Couche BRONZE : Stockage des données brutes IoT
+resource "google_storage_bucket" "bucket_bronze" {
+  name          = "solarmboa-data-lake-bronze"
+  location      = "EUROPE-WEST9"
+  storage_class = "STANDARD"
+
+  # Règle FinOps : Archivage automatique après 30 jours pour économiser
+  lifecycle_rule {
+    condition {
+      age = 30
+    }
+    action {
+      type          = "SetStorageClass"
+      storage_class = "NEARLINE"
+    }
+  }
+}
+
+# Couche GOLD : Données nettoyées prêtes pour les graphiques de la direction
+resource "google_storage_bucket" "bucket_gold" {
+  name          = "solarmboa-data-lake-gold"
+  location      = "EUROPE-WEST9"
+  storage_class = "STANDARD"
+
+  # Sécurité : Interdiction absolue d'ouvrir ces fichiers au public
+  public_access_prevention = "enforced"
+}
+
