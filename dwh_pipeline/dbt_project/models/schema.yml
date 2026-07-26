@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: int_telemetry_cleaned
+    description: "Données de télémétrie nettoyées et dédupliquées"
+    columns:
+      - name: sensor_id
+        tests:
+          - not_null # Test obligatoire d'absence de vide
+
+      - name: battery_level_pct
+        tests:
+          - not_null
+
+      - name: alert_code
+        tests:
+          - accepted_values: # Test obligatoire de valeurs autorisées
+              values: ['NOMINAL', 'ALERT_OVERHEAT', 'ALERT_LOW_BATTERY', 'ERROR_DISCONNECTED']
+
+  - name: gold_energy_production
+    description: "Table de faits agrégée pour les tableaux de bord décisionnels"
+    columns:
+      - name: region_name
+        tests:
+          - not_null
