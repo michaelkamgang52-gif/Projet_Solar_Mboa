@@ -1,0 +1,3 @@
+# Livrable 1 : Architecture Réseau Réduite à l'Essentiel
+*   **Isolation Hermétique** : Deux VPC distincts (`staging` et `prod`). Aucun pont réseau direct n'existe entre les deux environnements pour éviter les fuites de données de test en production.
+*   **Principe de Privacité** : Le sous-réseau de traitement de données (`10.0.2.0/24`) a l'option `private_ip_google_access` activée. Les serveurs consomment les API Google (BigQuery, GCS) via le réseau interne sans jamais exposer leurs adresses sur Internet.
