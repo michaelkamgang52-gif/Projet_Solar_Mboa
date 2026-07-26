@@ -4,151 +4,106 @@ services:
 
   # ======================================================
   # REDIS
-  # Cache des sessions IoT
   # ======================================================
   redis:
     image: redis:7.2-alpine
     container_name: solarmboa-redis
     restart: unless-stopped
-
     ports:
       - "6379:6379"
-
     command: redis-server --appendonly yes
-
     volumes:
       - redis-data:/data
-
     networks:
       - solarmboa-network
 
-
   # ======================================================
   # MONGODB
-  # Base documentaire
   # ======================================================
   mongodb:
     image: mongo:7.0
     container_name: solarmboa-mongodb
     restart: unless-stopped
-
     ports:
       - "27017:27017"
-
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: SolarMboaPassword2026
-
+      MONGO_INITDB_ROOT_USERNAME: michaelkamgang
+      MONGO_INITDB_ROOT_PASSWORD: michaelkamgang52
     volumes:
       - mongodb-data:/data/db
-
     networks:
       - solarmboa-network
 
-
   # ======================================================
   # CASSANDRA
-  # Données massives
   # ======================================================
   cassandra:
     image: cassandra:4.1
     container_name: solarmboa-cassandra
     restart: unless-stopped
-
     ports:
       - "9042:9042"
-
     environment:
       CASSANDRA_CLUSTER_NAME: SolarMboaCluster
       CASSANDRA_DC: datacenter1
       CASSANDRA_RACK: rack1
-
     volumes:
       - cassandra-data:/var/lib/cassandra
-
     networks:
       - solarmboa-network
 
-
   # ======================================================
   # NEO4J
-  # Graphe
   # ======================================================
   neo4j:
     image: neo4j:5.15-community
     container_name: solarmboa-neo4j
     restart: unless-stopped
-
     ports:
       - "7474:7474"
       - "7687:7687"
-
     environment:
-      NEO4J_AUTH: neo4j/SolarMboaPassword2026
+      NEO4J_AUTH: neo4j/michaelkamgang52
       NEO4J_PLUGINS: '["apoc"]'
-
     volumes:
       - neo4j-data:/data
       - neo4j-logs:/logs
       - neo4j-import:/import
       - neo4j-plugins:/plugins
-
     networks:
       - solarmboa-network
 
-
   # ======================================================
   # INFLUXDB
-  # Séries temporelles
   # ======================================================
   influxdb:
     image: influxdb:2.7-alpine
     container_name: solarmboa-influxdb
     restart: unless-stopped
-
     ports:
       - "8086:8086"
-
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup
-
-      DOCKER_INFLUXDB_INIT_USERNAME: admin
-      DOCKER_INFLUXDB_INIT_PASSWORD: SolarMboaPassword2026
-
+      DOCKER_INFLUXDB_INIT_USERNAME: michaelkamgang
+      DOCKER_INFLUXDB_INIT_PASSWORD: michaelkamgang52
       DOCKER_INFLUXDB_INIT_ORG: solarmboa_org
       DOCKER_INFLUXDB_INIT_BUCKET: telemetry_bucket
-
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: solarmboa_secret_token_2026_test
-
     volumes:
       - influxdb-data:/var/lib/influxdb2
-
     networks:
       - solarmboa-network
 
-
-# ======================================================
-# RESEAU
-# ======================================================
 networks:
   solarmboa-network:
     driver: bridge
 
-
-# ======================================================
-# VOLUMES
-# ======================================================
 volumes:
-
   redis-data:
-
   mongodb-data:
-
   cassandra-data:
-
   neo4j-data:
   neo4j-logs:
   neo4j-import:
   neo4j-plugins:
-
   influxdb-data:
