@@ -1,4 +1,4 @@
-# ☀️ Plateforme Data & IA Engineering — SolarMboa Technologies
+#  Plateforme Data & IA Engineering — SolarMboa Technologies
 
 Bienvenue sur le dépôt officiel de la plateforme de données modernisée de **SolarMboa Technologies**, startup solaire camerounaise en pleine expansion. Ce projet valide l'infrastructure d'ingestion IoT massive (12 millions d'événements/jour), le déploiement Cloud automatisé, l'architecture Lakehouse transactionnelle et la gouvernance décisionnelle de l'entreprise.
 
@@ -20,7 +20,7 @@ Projet_Solar_Mboa/
 │   ├──  dbt_project/
 │   │   └──  models/
 │   │       ├──  bronze/              # stg_telemetry.sql (Vue brute)
-│   │       ├──  ilver/              # int_telemetry_cleaned.sql (Nettoyage & Déduplication)
+│   │       ├──  silver/              # int_telemetry_cleaned.sql (Nettoyage & Déduplication)
 │   │       ├──  gold/                # gold_energy_production.sql & gold_advanced_metrics.sql
 │   │       └──  schema.yml           # Tests de qualité et observabilité (Freshness 2h)
 │   ├──  sql/
@@ -43,24 +43,31 @@ Projet_Solar_Mboa/
 
 ---
 
-##  2. Registre Central des Connexions & Identifiants Personnels
+## 2. Registre Central des Connexions & Liens d'Accès Directs
 
-Toutes les bases NoSQL de la stack locale sont sécurisées à votre nom avec les accès définis dans le `docker-compose.yml` :
+Toutes les bases NoSQL de la stack locale sont sécurisées et accessibles à votre nom. Cliquez directement sur les liens ci-dessous pour ouvrir les interfaces d'administration web depuis votre navigateur :
 
-| Technologie NoSQL | Rôle Métier | URL / Port Local | Identifiant (User) | Mot de passe (Password) |
+| Technologie NoSQL | Rôle Métier | Lien d'Accès Web Navigateur | Identifiant (Username) | Mot de passe (Password) |
 | :--- | :--- | :--- | :--- | :--- |
-| **MongoDB** | Profils clients & Contrats | `localhost:27017` | `michaelkamgang` | `michaelkamgang52` |
-| **Neo4j** | Graphe réseau distribution | `localhost:7474` (Web)<br>`bolt://localhost:7687` | `neo4j` | `michaelkamgang52` |
-| **InfluxDB** | Métriques IoT Temps Réel | `localhost:8086` | `michaelkamgang` | `michaelkamgang52` |
-| **Cassandra** | Historique long terme | `localhost:9042` | *Anonyme local* | *Aucun (Timeout 60s)* |
-| **Redis** | Cache d'alertes instantané | `localhost:6379` | *Anonyme local* | *Aucun* |
+| ** Neo4j Browser** | Visualisation du Graphe Réseau |  [http://localhost:7474](http://localhost:7474) | `neo4j` | `michaelkamgang52` |
+| ** InfluxDB UI** | Tableau de bord Temporel IoT |  [http://localhost:8086](http://localhost:8086) | `michaelkamgang` | `michaelkamgang52` |
+| ** MongoDB Server** | Stockage des Profils Clients | `localhost:27017` *(Via Extension)* | `michaelkamgang` | `michaelkamgang52` |
+| **⚫ Cassandra Cluster** | Ingestion Historique de Masse | `localhost:9042` *(Via Terminal)* | *Anonyme local* | *Aucun (Timeout 60s)* |
+| ** Redis Cache** | Alertes Capteurs Temps Réel | `localhost:6379` *(Via Extension)* | *Anonyme local* | *Aucun* |
 
-*   **URI de connexion MongoDB (VS Code / Compass)** : `mongodb://michaelkamgang:michaelkamgang52@localhost:27017/`
-*   **Token Admin InfluxDB (Python API)** : `solarmboa_secret_token_2026_test` (`Org: solarmboa_org` / `Bucket: telemetry_bucket`)
+###  Protocoles & Clés d'API Spécifiques pour les Développeurs :
+*   **Chaîne de Connexion MongoDB (VS Code / Compass)** :  
+    `mongodb://michaelkamgang:michaelkamgang52@localhost:27017/`
+*   **Protocole Bolt Neo4j (Python API)** :  
+    `bolt://localhost:7687`
+*   **Token Admin InfluxDB (Python API)** :  
+    `solarmboa_secret_token_2026_test` (`Org: solarmboa_org` / `Bucket: telemetry_bucket`)
+*   **Commande de Connexion Terminal Cassandra (cqlsh)** :  
+    `docker exec -it solarmboa-cassandra cqlsh`
 
 ---
 
-## 🏗️ 3. Schéma Architectural de la Plateforme End-to-End
+##  3. Schéma Architectural de la Plateforme End-to-End
 
 ```text
 [5 285 Capteurs IoT] ──> [Fichier CSV / Ingestion NoSQL]
@@ -116,7 +123,7 @@ La dimension des kits matériels `dim_installation` gère l'historisation lente 
 
 ---
 
-## 🚀 5. Guide de Lancement et de Déploiement Rapide
+##  5. Guide de Lancement et de Déploiement Rapide
 
 Pour reproduire et auditer l'intégralité du projet de Michael Kamgang :
 
