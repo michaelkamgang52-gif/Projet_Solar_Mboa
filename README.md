@@ -49,21 +49,22 @@ Toutes les bases NoSQL de la stack locale sont sécurisées et accessibles à vo
 
 | Technologie NoSQL | Rôle Métier | Lien d'Accès Web Navigateur | Identifiant (Username) | Mot de passe (Password) |
 | :--- | :--- | :--- | :--- | :--- |
-| ** Neo4j Browser** | Visualisation du Graphe Réseau |  [http://localhost:7474](http://localhost:7474) | `neo4j` | `michaelkamgang52` |
-| ** InfluxDB UI** | Tableau de bord Temporel IoT |  [http://localhost:8086](http://localhost:8086) | `michaelkamgang` | `michaelkamgang52` |
-| ** MongoDB Server** | Stockage des Profils Clients | `localhost:27017` *(Via Extension)* | `michaelkamgang` | `michaelkamgang52` |
-| **⚫ Cassandra Cluster** | Ingestion Historique de Masse | `localhost:9042` *(Via Terminal)* | *Anonyme local* | *Aucun (Timeout 60s)* |
-| ** Redis Cache** | Alertes Capteurs Temps Réel | `localhost:6379` *(Via Extension)* | *Anonyme local* | *Aucun* |
+| **Neo4j Browser** | Visualisation du Graphe Réseau | http://localhost:7474 | neo4j | michaelkamgang52 |
+| **InfluxDB UI** | Tableau de bord Temporel IoT | http://localhost:8086 | michaelkamgang | michaelkamgang52 |
+| **MongoDB Server** | Stockage des Profils Clients | localhost:27017 (Via Extension) | michaelkamgang | michaelkamgang52 |
+| **Cassandra Cluster** | Ingestion Historique de Masse | localhost:9042 (Via Terminal) | Aucun (Désactivé) | Aucun |
+| **Redis Cache** | Alertes Capteurs Temps Réel | localhost:6379 (Via Extension) | Aucun (Désactivé) | Aucun |
 
-###  Protocoles & Clés d'API Spécifiques pour les Développeurs :
-*   **Chaîne de Connexion MongoDB (VS Code / Compass)** :  
-    `mongodb://michaelkamgang:michaelkamgang52@localhost:27017/`
-*   **Protocole Bolt Neo4j (Python API)** :  
-    `bolt://localhost:7687`
-*   **Token Admin InfluxDB (Python API)** :  
-    `solarmboa_secret_token_2026_test` (`Org: solarmboa_org` / `Bucket: telemetry_bucket`)
-*   **Commande de Connexion Terminal Cassandra (cqlsh)** :  
-    `docker exec -it solarmboa-cassandra cqlsh`
+### Protocoles & Clés d'API Spécifiques pour les Développeurs :
+
+* **Chaîne de Connexion MongoDB (VS Code / Compass) :**  
+  `mongodb://michaelkamgang:michaelkamgang52@localhost:27017/`
+* **Protocole Bolt Neo4j (Python API) :**  
+  `bolt://localhost:7687`
+* **Token Admin InfluxDB (Python API) :**  
+  `solarmboa_secret_token_2026_test` (Org: solarmboa_org / Bucket: telemetry_bucket)
+* **Commande de Connexion Terminal Cassandra (cqlsh) :**  
+  `docker exec -it solarmboa-cassandra cqlsh`
 
 ---
 
